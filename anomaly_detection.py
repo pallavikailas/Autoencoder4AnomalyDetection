@@ -40,9 +40,8 @@ def detect_anomalies(test_dataloader):
                     aircraft_registration = aircraft_registration_list[0] if aircraft_registration_list else None
                     arr_airport = arr_airport_list[0] if arr_airport_list else None
                     dep_airport = dep_airport_list[0] if dep_airport_list else None
-                    anomalies_df.loc[len(anomalies_df)] = [aircraft_registration, None,
-                                                           arr_airport, None,
-                                                           dep_airport, None]
+                    anomalies_df.loc[len(anomalies_df)] = [aircraft_registration, arr_airport,
+                                                           dep_airport, None, None, None]
 
                     # Extract relevant features for LimeTabularExplainer
                     data_row = np.array(list(decoded_row.values())).reshape(1, -1)  # Reshape for LimeTabularExplainer
