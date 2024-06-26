@@ -9,9 +9,9 @@ from dataloader import dataset
 def detect_anomalies(test_dataloader):
     autoencoder.eval()
 
-    anomalies_df = pd.DataFrame(columns=['A/C Registration', 'A/C weight',
-                                         'Arr Airport', 'Arr weight',
-                                         'Dep Airport', 'Dep weight'])
+    anomalies_df = pd.DataFrame(columns=['A/C Registration', 'Arr Airport',
+                                         'Dep Airport', 'A/C weight',
+                                         'Arr weight', 'Dep weight'])
     explanations = []
 
     feature_names = dataset.columns
