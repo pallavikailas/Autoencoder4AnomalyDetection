@@ -5,7 +5,7 @@ import torch
 torch.manual_seed(42)
 
 # File paths
-dataset = "C:/Users/209500/Desktop/SQLtest/combined_data.xlsx"
+dataset = "combined_data.xlsx"
 dataset = ExcelDataset(dataset)
 
 # Train-Val-Test split
