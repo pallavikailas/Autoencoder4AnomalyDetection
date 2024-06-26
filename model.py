@@ -25,7 +25,7 @@ class VAE(nn.Module):
         self.fc35 = nn.Linear(latent_size // 4, latent_size // 16)
         self.fc42 = nn.Linear(latent_size // 16, latent_size // 4)
         self.fc43 = nn.Linear(latent_size // 4, latent_size)
-        self.dropout = nn.Dropout(p=0.001)
+        self.dropout = nn.Dropout(p=0.0001)
 
     def encode(self, x):
         h1 = f.elu(self.fc1(x))
