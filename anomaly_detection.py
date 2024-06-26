@@ -2,8 +2,8 @@ import pandas as pd
 import torch
 import numpy as np
 from lime.lime_tabular import LimeTabularExplainer
-from training import autoencoder, multiplier  # Assuming these are correctly imported
-from dataloader import dataset  # Assuming these are correctly imported
+from training import autoencoder, multiplier  
+from dataloader import dataset 
 
 
 def detect_anomalies(test_dataloader):
@@ -12,7 +12,7 @@ def detect_anomalies(test_dataloader):
 
     autoencoder.eval()
 
-    feature_names = dataset.columns  # Adjust based on your dataset columns
+    feature_names = dataset.columns  
 
     # Convert dataset.data to numpy array if necessary
     if isinstance(dataset.data, pd.DataFrame):
@@ -69,8 +69,6 @@ def detect_anomalies(test_dataloader):
                             arr_airport = feature.split('_')[-1], round(weight, 2)
                         elif 'DEP_AIRPORT' in feature:
                             dep_airport = feature.split('_')[-1], round(weight, 2)
-
-                    # Format anomaly details into a string
 
                     # Store individual components for explanation DataFrame
                     explanations.append({
