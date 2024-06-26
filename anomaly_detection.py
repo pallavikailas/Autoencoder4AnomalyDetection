@@ -3,23 +3,19 @@ import torch
 import numpy as np
 from lime.lime_tabular import LimeTabularExplainer
 from training import autoencoder, multiplier
-from dataloader import dataset  # Assuming these are correctly imported
+from dataloader import dataset
 
 
 def detect_anomalies(test_dataloader):
-    anomalies_df = pd.DataFrame(columns=['A/C Registration', 'Arr Airport', 'Dep Airport'])
-    explanations = []
-
     autoencoder.eval()
 
-    feature_names = dataset.columns  # Adjust based on your dataset columns
+    anomalies_df = pd.DataFrame(columns=['A/C Registration', 'A/C weight',
+                                         'Arr Airport', 'Arr weight',
+                                         'Dep Airport', 'Dep weight'])
+    explanations = []
 
-    # Convert dataset.data to numpy array if necessary
-    if isinstance(dataset.data, pd.DataFrame):
-        data_array = dataset.data.values
-    else:
-        data_array = dataset.data  # Assuming dataset.data is already a numpy array or convertible
-
+    feature_names = dataset.columns
+    data_array = dataset.data.values
     explainer = LimeTabularExplainer(data_array, mode='regression', feature_names=feature_names)
 
     with torch.no_grad():
@@ -32,7 +28,7 @@ def detect_anomalies(test_dataloader):
 
             for idx in range(inputs.size(0)):
                 if loss[idx] >= threshold:
-                    decoded_row = dataset.inverse_transform(inputs[idx].cpu().numpy())  # Adjust as per your dataset
+                    decoded_row = dataset.inverse_transform(inputs[idx].cpu().numpy())
 
                     aircraft_registration_list = [key.split('_')[-1] for key, value in decoded_row.items() if
                                                   'AIRCRAFT_REGISTRATION' in key and value == 1]
@@ -44,16 +40,16 @@ def detect_anomalies(test_dataloader):
                     aircraft_registration = aircraft_registration_list[0] if aircraft_registration_list else None
                     arr_airport = arr_airport_list[0] if arr_airport_list else None
                     dep_airport = dep_airport_list[0] if dep_airport_list else None
-
-                    anomalies_df.loc[len(anomalies_df)] = [aircraft_registration, arr_airport, dep_airport]
+                    anomalies_df.loc[len(anomalies_df)] = [aircraft_registration, None,
+                                                           arr_airport, None,
+                                                           dep_airport, None]
 
                     # Extract relevant features for LimeTabularExplainer
                     data_row = np.array(list(decoded_row.values())).reshape(1, -1)  # Reshape for LimeTabularExplainer
-
                     explained_instance = explainer.explain_instance(data_row[0], predict_fn,
                                                                     num_features=len(feature_names))
 
-                    # Get the list of feature names and weights as tuples
+                    # Get the list of feature names and weights
                     explanation_features = explained_instance.as_list()
 
                     for feature, weight in explanation_features:
@@ -64,18 +60,17 @@ def detect_anomalies(test_dataloader):
 
     explanations_df = pd.DataFrame(explanations, columns=['Features', 'Weight'])
 
-    # Check if anomalies match 'ARR_AIRPORT' feature and add corresponding weight
+    # Check if anomalies match features and add corresponding weight
     for index, row in anomalies_df.iterrows():
         for feature, weight in zip(explanations_df['Features'], explanations_df['Weight']):
             if row['A/C Registration'] is not None and 'AIRCRAFT_REGISTRATION' in feature \
                     and row['A/C Registration'] in feature:
-                anomalies_df.loc[index, 'a/c weight'] = weight
-            if row['Arr Airport'] is not None and 'ARR_AIRPORT' in feature and row['Arr Airport'] in feature:
-                anomalies_df.loc[index, 'arr weight'] = weight
-            if row['Dep Airport'] is not None and 'DEP_AIRPORT' in feature and row['Dep Airport'] in feature:
-                anomalies_df.loc[index, 'dep weight'] = weight
+                anomalies_df.loc[index, 'A/C weight'] = weight
+            elif row['Arr Airport'] is not None and 'ARR_AIRPORT' in feature and row['Arr Airport'] in feature:
+                anomalies_df.loc[index, 'Arr weight'] = weight
+            elif row['Dep Airport'] is not None and 'DEP_AIRPORT' in feature and row['Dep Airport'] in feature:
+                anomalies_df.loc[index, 'Dep weight'] = weight
 
-    print(explanations_df)
     print(anomalies_df)
 
 

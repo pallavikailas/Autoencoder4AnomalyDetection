@@ -8,11 +8,11 @@ torch.manual_seed(42)
 dataset = "C:/Users/209500/Desktop/SQLtest/combined_data.xlsx"
 dataset = ExcelDataset(dataset)
 
-# Determine sizes for train, validation, and test sets
+# Train-Val-Test split
 total_size = len(dataset)
-train_size = int(0.6 * total_size)  # 60% for training
-val_size = int(0.2 * total_size)    # 20% for validation
-test_size = total_size - train_size - val_size  # Remaining for testing
+train_size = int(0.6 * total_size)
+val_size = int(0.2 * total_size)
+test_size = total_size - train_size - val_size
 
 # Split sequentially
 train_dataset = torch.utils.data.Subset(dataset, range(0, train_size))

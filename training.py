@@ -1,11 +1,13 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.optim.lr_scheduler import CosineAnnealingLR
 from model import VAE
+from torch.optim.lr_scheduler import CosineAnnealingLR
 from dataloader import train_dataloader, val_dataloader, train_dataset
 
 input_size = len(train_dataset[0])
+
+# Hyperparameters
 num_epochs = 1000
 learning_rate = 0.001
 multiplier = 1.0
@@ -16,9 +18,10 @@ optimizer = optim.AdamW(autoencoder.parameters(), lr=learning_rate)
 scheduler = CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
 
 # Early stopping parameters
-patience = 10  # Number of epochs with no improvement after which training will be stopped
+patience = 10
 best_val_loss = float('inf')
 epochs_no_improve = 0
+
 
 def train_model():
     global best_val_loss, epochs_no_improve

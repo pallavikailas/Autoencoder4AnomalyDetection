@@ -20,13 +20,11 @@ class VAE(nn.Module):
         self.fc6 = nn.Linear(64, 128)
         self.fc7 = nn.Linear(128, input_size)
 
-        # Additional layers for encoding and decoding
+        # Additional encoding and decoding layers
         self.fc34 = nn.Linear(latent_size, latent_size // 4)
         self.fc35 = nn.Linear(latent_size // 4, latent_size // 16)
         self.fc42 = nn.Linear(latent_size // 16, latent_size // 4)
         self.fc43 = nn.Linear(latent_size // 4, latent_size)
-
-        # Dropout layer (typically used during training)
         self.dropout = nn.Dropout(p=0.01)
 
     def encode(self, x):
