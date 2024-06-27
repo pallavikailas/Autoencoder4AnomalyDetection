@@ -20,10 +20,10 @@ if file_1 is not None and file_2 is not None:
     train_dataloader, val_dataloader, test_dataloader = create_dataloaders(file_1, file_2)
 
     # Train the model
-    train_model(train_dataloader, val_dataloader)
+    autoencoder = train_model(train_dataloader, val_dataloader)
 
     # Perform anomaly detection
-    anomalies_df = detect_anomalies(test_dataloader)
+    anomalies_df = detect_anomalies(test_dataloader, autoencoder)
 
     st.write("## Anomalies Detected")
     st.dataframe(anomalies_df)
