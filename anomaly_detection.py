@@ -2,7 +2,7 @@ import pandas as pd
 import torch
 import numpy as np
 from lime.lime_tabular import LimeTabularExplainer
-from training import multiplier
+from hyperparameter import multiplier
 from dataloader import dataset
 
 
