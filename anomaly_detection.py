@@ -67,7 +67,7 @@ def detect_anomalies(test_dataloader, autoencoder, dataset):
             elif row['Dep Airport'] is not None and 'DEP_AIRPORT' in feature and row['Dep Airport'] in feature:
                 anomalies_df.loc[index, 'Dep weight'] = weight
 
-    return(anomalies_df)
+    print(anomalies_df)
 
 
 def predict_fn(x):
