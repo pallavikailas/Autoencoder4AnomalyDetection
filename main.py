@@ -3,7 +3,6 @@ import pandas as pd
 from dataloader import create_dataloaders
 from training import train_model
 from anomaly_detection import detect_anomalies
-from hyperparameters import file1, file2
 
 st.title("Anomaly Detection App")
 
@@ -24,7 +23,7 @@ if file_1 is not None and file_2 is not None:
     autoencoder = train_model(train_dataloader, val_dataloader)
 
     # get dataset
-    dataset = create_dataset(file1, file2)
+    dataset = create_dataset(file_1, file_2)
 
     # Perform anomaly detection
     anomalies_df = detect_anomalies(test_dataloader, autoencoder, dataset)
