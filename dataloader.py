@@ -1,6 +1,5 @@
 from torch.utils.data import DataLoader
 from excel_file import ExcelDataset
-from hyperparameter import batch_size
 import torch
 
 torch.manual_seed(42)
@@ -21,6 +20,6 @@ val_dataset = torch.utils.data.Subset(dataset, range(train_size, train_size + va
 test_dataset = torch.utils.data.Subset(dataset, range(train_size + val_size, total_size))
 
 # DataLoaders
-train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=True)
-test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+train_dataloader = DataLoader(train_dataset, batch_size=64, shuffle=True)
+val_dataloader = DataLoader(val_dataset, batch_size=64, shuffle=True)
+test_dataloader = DataLoader(test_dataset, batch_size=64, shuffle=False)
