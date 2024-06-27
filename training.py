@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.optim as optim
 from model import VAE
 from torch.optim.lr_scheduler import CosineAnnealingLR
-from dataloader import train_dataloader, val_dataloader, train_dataset
 
 input_size = len(train_dataset[0])
 
@@ -23,7 +22,7 @@ best_val_loss = float('inf')
 epochs_no_improve = 0
 
 
-def train_model():
+def train_model(train_dataloader, val_dataloader):
     global best_val_loss, epochs_no_improve
 
     for epoch in range(num_epochs):
@@ -82,4 +81,4 @@ def train_model():
 
         scheduler.step()
 
-    print('Training finished.')
+    return autoencoder
