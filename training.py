@@ -4,13 +4,10 @@ import torch.optim as optim
 from model import VAE
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from dataloader import create_dataloaders
+from hyperparameter import num_epochs, learning_rate, multiplier, patience
 
 def train_model(train_dataloader, val_dataloader):
     input_size = len(train_dataloader.dataset[0])
-    # Hyperparameters
-    num_epochs = 1000
-    learning_rate = 0.001
-    multiplier = 1.0
     autoencoder = VAE(input_size)
 
     criterion = nn.SmoothL1Loss()
@@ -18,7 +15,6 @@ def train_model(train_dataloader, val_dataloader):
     scheduler = CosineAnnealingLR(optimizer, T_max=100, eta_min=0)
 
     # Early stopping parameters
-    patience = 10
     best_val_loss = float('inf')
     epochs_no_improve = 0
 
