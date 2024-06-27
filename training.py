@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.optim as optim
 from model import VAE
 from torch.optim.lr_scheduler import CosineAnnealingLR
-from dataloader import create_dataloaders
 from hyperparameter import num_epochs, learning_rate, multiplier, patience
 
 def train_model(train_dataloader, val_dataloader):
