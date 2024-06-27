@@ -4,7 +4,7 @@ from training import train_model
 from anomaly_detection import detect_anomalies
 from data_creater import create_dataset
 
-if __name__ == __main__:
+if __name__ == "__main__":
     # Set Streamlit page configuration
     st.set_page_config(page_title="Anomaly Detection App", layout="wide")
 
