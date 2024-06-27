@@ -1,22 +1,14 @@
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader, Dataset
-from excel_file import ExcelDataset
+from data_creater import create_dataset
 from hyperparameter import batch_size
 
 torch.manual_seed(42)
 
 def create_dataloaders(correct_data_path, wrong_data_path, batch_size=batch_size):
-    # Read the uploaded Excel files
-    correct_data = pd.read_excel(correct_data_path)
-    wrong_data = pd.read_excel(wrong_data_path)
-
-    # Concatenate the two datasets
-    combined_data = pd.concat([correct_data, wrong_data], axis=0)
-
-    # Create the dataset
-    dataset = ExcelDataset(combined_data)
-
+    dataset = create_dataset(correct_data_path, wrong_data_path)
+    
     # Train-Val-Test split
     total_size = len(dataset)
     train_size = int(0.6 * total_size)
