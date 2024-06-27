@@ -20,21 +20,28 @@ if __name__ == "__main__":
     file_2 = st.file_uploader("Choose the second Excel file (Wrong data)", type="xlsx")
 
     if file_1 is not None and file_2 is not None:
-        # Create the dataset
-        dataset = create_dataset(file_1, file_2)
-    
-        # Create DataLoaders
-        train_dataloader, val_dataloader, test_dataloader = create_dataloaders(file_1, file_2)
+        # Wrap the entire process in a spinner to indicate loading
+        with st.spinner('Processing files...'):
+            # Create the dataset
+            dataset = create_dataset(file_1, file_2)
 
-        # Train the model
-        autoencoder = train_model(train_dataloader, val_dataloader)
+            # Create DataLoaders
+            train_dataloader, val_dataloader, test_dataloader = create_dataloaders(file_1, file_2)
 
-        # Perform anomaly detection
-        anomalies_df = detect_anomalies(test_dataloader, autoencoder, dataset)
+            # Train the model
+            autoencoder = train_model(train_dataloader, val_dataloader)
 
-        # Display anomalies
-        st.write("## Anomalies Detected")
-        st.dataframe(anomalies_df)
+            # Perform anomaly detection
+            anomalies_df = detect_anomalies(test_dataloader, autoencoder, dataset)
 
-    # Run the Streamlit app
-    st.rerun()
+            # Display anomalies
+            st.write("## Anomalies Detected")
+            st.dataframe(anomalies_df)
+
+            # Trigger rerun to reset file uploaders
+            st.experimental_rerun()
+
+    # Display file uploaders and wait for user input
+    else:
+        st.write("Upload two Excel files to get started.")
+
