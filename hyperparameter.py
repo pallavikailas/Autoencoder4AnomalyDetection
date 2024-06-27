@@ -1,3 +1,5 @@
 num_epochs = 1000
-learning_rate = 0.005
+learning_rate = 0.001
 batch_size = 64
+multiplier = 1.0
+patience = 10
