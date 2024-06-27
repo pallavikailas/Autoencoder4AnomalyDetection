@@ -42,7 +42,7 @@ def detect_anomalies(test_dataloader, autoencoder, dataset):
 
                     # Extract relevant features for LimeTabularExplainer
                     data_row = np.array(list(decoded_row.values())).reshape(1, -1)  # Reshape for LimeTabularExplainer
-                    explained_instance = explainer.explain_instance(data_row[0], predict_fn,
+                    explained_instance = explainer.explain_instance(data_row[0], autoencoder(torch.tensor(x).float())[0].detach().numpy(),
                                                                     num_features=len(feature_names))
 
                     # Get the list of feature names and weights
