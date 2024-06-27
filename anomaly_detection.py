@@ -2,11 +2,11 @@ import pandas as pd
 import torch
 import numpy as np
 from lime.lime_tabular import LimeTabularExplainer
-from training import autoencoder, multiplier
+from training import multiplier
 from dataloader import dataset
 
 
-def detect_anomalies(test_dataloader):
+def detect_anomalies(test_dataloader, autoencoder):
     autoencoder.eval()
 
     anomalies_df = pd.DataFrame(columns=['A/C Registration', 'Arr Airport',
