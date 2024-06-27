@@ -37,4 +37,4 @@ if __name__ == "__main__":
         st.dataframe(anomalies_df)
 
     # Run the Streamlit app
-    st.experimental_rerun()
+    st.rerun()
