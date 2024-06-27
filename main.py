@@ -5,8 +5,6 @@ from anomaly_detection import detect_anomalies
 from data_creater import create_dataset
 
 # Streamlit setup
-st.title("Anomaly Detection App")
-
 st.write("""
 # Detecting anomalies in aircraft data
 This app uses an autoencoder to detect anomalies in aircraft data and explains the detected anomalies using LIME.
@@ -17,14 +15,14 @@ file_1 = st.file_uploader("Choose the first Excel file (Correct data)", type="xl
 file_2 = st.file_uploader("Choose the second Excel file (Wrong data)", type="xlsx")
 
 if file_1 is not None and file_2 is not None:
+    # Create the dataset
+    dataset = create_dataset(file_1, file_2)
+    
     # Create DataLoaders
     train_dataloader, val_dataloader, test_dataloader = create_dataloaders(file_1, file_2)
 
     # Train the model
     autoencoder = train_model(train_dataloader, val_dataloader)
-
-    # Create the dataset
-    dataset = create_dataset(file_1, file_2)
 
     # Perform anomaly detection
     anomalies_df = detect_anomalies(test_dataloader, autoencoder, dataset)
@@ -35,5 +33,5 @@ if file_1 is not None and file_2 is not None:
 
 # Run the Streamlit app
 if __name__ == '__main__':
-    st.set_page_config(page_title="Anomaly Detection", layout="wide")
+    st.set_page_config(page_title="Anomaly Detection App", layout="wide")
     st.experimental_rerun()
