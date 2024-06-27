@@ -2,10 +2,11 @@ import pandas as pd
 import torch
 from torch.utils.data import DataLoader, Dataset
 from excel_file import ExcelDataset
+from hyperparameter import batch_size
 
 torch.manual_seed(42)
 
-def create_dataloaders(correct_data_path, wrong_data_path, batch_size=64):
+def create_dataloaders(correct_data_path, wrong_data_path, batch_size=batch_size):
     # Read the uploaded Excel files
     correct_data = pd.read_excel(correct_data_path)
     wrong_data = pd.read_excel(wrong_data_path)
