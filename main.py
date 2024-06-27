@@ -34,7 +34,7 @@ def main():
             st.dataframe(anomalies_df)
             
     else:
-    st.warning("Please upload both files to start training.")
+        st.warning("Please upload both files to start training.")
 
 if __name__ == "__main__":
     main()
