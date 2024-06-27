@@ -25,7 +25,7 @@ def main():
         st.write("Training complete!")
         
         # Detect anomalies
-        st.header("Detecting Anomalies")
+        st.write("Detecting Anomalies.....")
         anomalies_df = detect_anomalies(test_dataloader, autoencoder, dataset)
         
         # Display anomalies
