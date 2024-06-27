@@ -21,7 +21,7 @@ def main():
         # Train autoencoder
         st.header("Training Autoencoder")
         st.write("Training in progress...")
-        autoencoder = train_autoencoder(processed_data)
+        autoencoder = train_model(processed_data)
         st.write("Training complete!")
         
         # Detect anomalies
