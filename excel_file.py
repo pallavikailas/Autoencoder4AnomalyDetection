@@ -2,10 +2,9 @@ import pandas as pd
 import numpy as np
 from torch.utils.data import Dataset
 
-
 class ExcelDataset(Dataset):
-    def __init__(self, excel_file):
-        self.data1 = pd.read_excel(excel_file)
+    def __init__(self, dataframe):
+        self.data1 = dataframe
         self.label_encoders = {}
         self.data2 = pd.get_dummies(self.data1, columns=[col for col in self.data1.columns
                                                          if self.data1[col].dtype == 'object'])
