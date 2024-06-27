@@ -5,6 +5,7 @@ from anomaly_detection import detect_anomalies
 from data_creater import create_dataset
 
 # Streamlit setup
+st.title("Anomaly Detection App")
 st.write("""
 # Detecting anomalies in aircraft data
 This app uses an autoencoder to detect anomalies in aircraft data and explains the detected anomalies using LIME.
