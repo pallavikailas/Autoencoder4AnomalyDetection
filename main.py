@@ -39,7 +39,7 @@ if __name__ == "__main__":
             st.dataframe(anomalies_df)
 
             # Trigger rerun to reset file uploaders
-            st.experimental_rerun()
+            #st.experimental_rerun()
 
     # Display file uploaders and wait for user input
     else:
