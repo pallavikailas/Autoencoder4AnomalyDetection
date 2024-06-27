@@ -4,6 +4,9 @@ from training import train_model
 from anomaly_detection import detect_anomalies
 from data_creater import create_dataset
 
+# Set Streamlit page configuration
+st.set_page_config(page_title="Anomaly Detection App", layout="wide")
+
 # Streamlit setup
 st.title("Anomaly Detection App")
 st.write("""
@@ -33,6 +36,4 @@ if file_1 is not None and file_2 is not None:
     st.dataframe(anomalies_df)
 
 # Run the Streamlit app
-if __name__ == '__main__':
-    st.set_page_config(page_title="Anomaly Detection App", layout="wide")
-    st.experimental_rerun()
+st.experimental_rerun()
