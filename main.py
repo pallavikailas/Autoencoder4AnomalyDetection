@@ -26,12 +26,11 @@ def main():
         
         # Detect anomalies
         st.header("Detecting Anomalies")
-        # anomalies_df = 
-        detect_anomalies(test_dataloader, autoencoder, dataset)
+        anomalies_df = detect_anomalies(test_dataloader, autoencoder, dataset)
         
         # Display anomalies
-        #st.subheader("Anomalies Detected")
-        #st.dataframe(anomalies_df)
+        st.subheader("Anomalies Detected")
+        st.dataframe(anomalies_df)
 
 if __name__ == "__main__":
     main()
