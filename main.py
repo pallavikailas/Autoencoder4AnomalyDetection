@@ -4,38 +4,33 @@ from training import train_model
 from anomaly_detection import detect_anomalies
 from data_creater import create_dataset
 
-# Set Streamlit page configuration
-st.set_page_config(page_title="Anomaly Detection App", layout="wide")
-
-# Streamlit setup
-st.title("Anomaly Detection App")
-st.write("""
-    # Detecting anomalies in aircraft data
-    This app uses an autoencoder to detect anomalies in aircraft data and explains the detected anomalies using LIME.
-""")
-
-# File uploaders for user to upload their own data files
-file_1 = st.file_uploader("Choose the first Excel file (Correct data)", type="xlsx")
-file_2 = st.file_uploader("Choose the second Excel file (Wrong data)", type="xlsx")
-
-if file_1 is not None and file_2 is not None:
-    # Wrap the entire process in a spinner to indicate loading
-    with st.spinner('Processing files...'):
-        # Create the dataset
+def main():
+    st.title("Anomaly Detection App")
+    
+    # File upload and data processing
+    st.header("Upload Files")
+    file_1 = st.file_uploader("Choose the first Excel file (Correct data)", type="xlsx")
+    file_2 = st.file_uploader("Choose the second Excel file (Wrong data)", type="xlsx")
+    
+    if file_1 is not None and file_2 is not None:
+        
         dataset = create_dataset(file_1, file_2)
-
         # Create DataLoaders
-        train_dataloader, val_dataloader, test_dataloader = create_dataloaders(file_1, file_2)
-
-        # Train the model
-        autoencoder = train_model(train_dataloader, val_dataloader)
-
-        # Perform anomaly detection
+        train_dataloader, val_dataloader, test_dataloader = create_dataloaders(dataset)
+                
+        # Train autoencoder
+        st.header("Training Autoencoder")
+        st.write("Training in progress...")
+        autoencoder = train_autoencoder(processed_data)
+        st.write("Training complete!")
+        
+        # Detect anomalies
+        st.header("Detecting Anomalies")
         anomalies_df = detect_anomalies(test_dataloader, autoencoder, dataset)
-
+        
         # Display anomalies
-        st.write("## Anomalies Detected")
+        st.subheader("Anomalies Detected")
         st.dataframe(anomalies_df)
 
-# Trigger rerun to reset file uploaders
-st.rerun()
+if __name__ == "__main__":
+    main()
