@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 from model import VAE
 from torch.optim.lr_scheduler import CosineAnnealingLR
-from dataloader import train_dataset
+from dataloader import create_dataloaders
 
 input_size = len(train_dataset[0])
 
