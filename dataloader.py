@@ -1,14 +1,11 @@
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader, Dataset
-from data_creater import create_dataset
 from hyperparameter import batch_size
 
 torch.manual_seed(42)
 
-def create_dataloaders(correct_data_path, wrong_data_path, batch_size=batch_size):
-    dataset = create_dataset(correct_data_path, wrong_data_path)
-    
+def create_dataloaders(dataset, batch_size=batch_size):    
     # Train-Val-Test split
     total_size = len(dataset)
     train_size = int(0.6 * total_size)
