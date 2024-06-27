@@ -37,5 +37,5 @@ if file_1 is not None and file_2 is not None:
         st.write("## Anomalies Detected")
         st.dataframe(anomalies_df)
 
-        # Trigger rerun to reset file uploaders
-        #st.experimental_rerun()
+# Trigger rerun to reset file uploaders
+st.rerun()
