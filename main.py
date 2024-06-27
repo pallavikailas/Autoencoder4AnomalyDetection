@@ -1,9 +1,10 @@
 import streamlit as st
-import pandas as pd
 from dataloader import create_dataloaders
 from training import train_model
 from anomaly_detection import detect_anomalies
+from data_creater import create_dataset
 
+# Streamlit setup
 st.title("Anomaly Detection App")
 
 st.write("""
@@ -22,12 +23,13 @@ if file_1 is not None and file_2 is not None:
     # Train the model
     autoencoder = train_model(train_dataloader, val_dataloader)
 
-    # get dataset
+    # Create the dataset
     dataset = create_dataset(file_1, file_2)
 
     # Perform anomaly detection
     anomalies_df = detect_anomalies(test_dataloader, autoencoder, dataset)
 
+    # Display anomalies
     st.write("## Anomalies Detected")
     st.dataframe(anomalies_df)
 
