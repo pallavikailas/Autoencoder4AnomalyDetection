@@ -2,12 +2,10 @@ import pandas as pd
 import torch
 import numpy as np
 from lime.lime_tabular import LimeTabularExplainer
-from hyperparameter import multiplier, file1, file2
-from data_creater import create_dataset
+from hyperparameter import multiplier
 
-def detect_anomalies(test_dataloader, autoencoder):
+def detect_anomalies(test_dataloader, autoencoder, dataset):
     autoencoder.eval()
-    dataset = create_dataset(file1, file2)
     anomalies_df = pd.DataFrame(columns=['A/C Registration', 'Arr Airport',
                                          'Dep Airport', 'A/C weight',
                                          'Arr weight', 'Dep weight'])
