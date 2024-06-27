@@ -7,7 +7,7 @@ from data_creater import create_dataset
 
 def detect_anomalies(test_dataloader, autoencoder):
     autoencoder.eval()
-    dataset = create_dataset(file1, fie2)
+    dataset = create_dataset(file1, file2)
     anomalies_df = pd.DataFrame(columns=['A/C Registration', 'Arr Airport',
                                          'Dep Airport', 'A/C weight',
                                          'Arr weight', 'Dep weight'])
